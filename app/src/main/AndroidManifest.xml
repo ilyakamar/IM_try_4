@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ilyakamar.im_try_4">
 
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,10 +20,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".StartScreen_Activity" />
         <activity android:name=".Signup_Activity" />
         <activity android:name=".Login_Activity" />
-        <activity android:name=".Main_Activity"></activity>
+        <activity android:name=".Main_Activity" />
+        <activity android:name=".Customers_Activity" />
+        <activity android:name=".Sale_Activity" />
+        <activity android:name=".Customers_DeatailTaskActivity" />
+        <activity android:name=".Inventory_Activity" />
+
+
+
+        <activity android:name=".Inventory_Details_Activity"
+            android:label="@string/new_product">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.ilyakamar.im_try_4.Inventory_Activity" />
+        </activity>
+
     </application>
 
 </manifest>
