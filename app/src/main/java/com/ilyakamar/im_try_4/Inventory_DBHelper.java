@@ -6,7 +6,32 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+
 public class Inventory_DBHelper extends SQLiteOpenHelper {
+
+    // FB
+    private FirebaseAuth mAuth;
+    private DatabaseReference myRef;
+
+    FirebaseUser user = mAuth.getInstance().getCurrentUser();
+    public  String uniq_Key_fromMail = "table1"; // user.getEmail()
+
+
+    private   String CREATE_TABLE_STOCK = "CREATE TABLE " +
+            uniq_Key_fromMail + "(" +
+            "_id" + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "name" + " TEXT NOT NULL," +
+            "price" + " TEXT NOT NULL," +
+            "quantity" + " INTEGER NOT NULL DEFAULT 0," +
+            "supplier_name" + " TEXT NOT NULL," +
+            "supplier_phone" + " TEXT NOT NULL," +
+            "supplier_email" + " TEXT NOT NULL," +
+            "image" + " TEXT NOT NULL" + ");";
+
+
 
     private final static String DB_NAME = "inventory.db";
     private final static int DB_VERSION = 1;
@@ -18,13 +43,15 @@ public class Inventory_DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {// onCreate
-        db.execSQL(Inventory_Contract.StockEntry.CREATE_TABLE_STOCK);
+       db.execSQL(Inventory_Contract.StockEntry.CREATE_TABLE_STOCK);
+
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {// onUpgrade
 
-    }
+    }// end onUpgrade
 
     public void insertItem(Inventory_Item item) { // insertItem
         SQLiteDatabase db = this.getWritableDatabase();
@@ -37,7 +64,8 @@ public class Inventory_DBHelper extends SQLiteOpenHelper {
         values.put(Inventory_Contract.StockEntry.COLUMN_SUPPLIER_PHONE, item.getSupplierPhone());
         values.put(Inventory_Contract.StockEntry.COLUMN_SUPPLIER_EMAIL, item.getSupplierEmail());
         values.put(Inventory_Contract.StockEntry.COLUMN_IMAGE, item.getImage());
-        long id = db.insert(Inventory_Contract.StockEntry.TABLE_NAME, null, values);
+       long id = db.insert(Inventory_Contract.StockEntry.TABLE_NAME, null, values);
+
     }// end insertItem
 
     public Cursor readStock() {// readStock (f)
@@ -55,7 +83,7 @@ public class Inventory_DBHelper extends SQLiteOpenHelper {
         };
 
         Cursor cursor = db.query(
-                Inventory_Contract.StockEntry.TABLE_NAME,
+              Inventory_Contract.StockEntry.TABLE_NAME,
                 projection,
                 null,
                 null,
@@ -85,7 +113,7 @@ public class Inventory_DBHelper extends SQLiteOpenHelper {
         String[] selectionArgs = new String[]{String.valueOf(itemId)};
 
         Cursor cursor = db.query(
-                Inventory_Contract.StockEntry.TABLE_NAME,
+             Inventory_Contract.StockEntry.TABLE_NAME,
                 projection,
                 selection,
                 selectionArgs,
@@ -118,7 +146,7 @@ public class Inventory_DBHelper extends SQLiteOpenHelper {
         values.put(Inventory_Contract.StockEntry.COLUMN_QUANTITY, newQuantity);
         String selection = Inventory_Contract.StockEntry._ID + "=?";
         String[] selectionArgs = new String[]{String.valueOf(itemId)};
-        db.update(Inventory_Contract.StockEntry.TABLE_NAME,
+       db.update(Inventory_Contract.StockEntry.TABLE_NAME,
                 values, selection, selectionArgs);
     }// end sellOneItem
 }

@@ -17,14 +17,9 @@ public class Inventory_Contract {// Inventory_Contract
 
     public static final class StockEntry implements BaseColumns {// StockEntry
 
-        // FB
-        private FirebaseAuth mAuth;
-        private DatabaseReference myRef;
 
-        FirebaseUser user = mAuth.getInstance().getCurrentUser();
-        public  String uniq_Key_fromMail = user.getEmail();
 
-        public static  final String TABLE_NAME = "stock";   //////////
+        public static  final String TABLE_NAME = "stock";
 
         // COLUMNS
         public static final String _ID = BaseColumns._ID;
