@@ -31,18 +31,6 @@
         <activity android:name=".Inventory_Activity" />
 
 
-
-        <activity android:name=".Inventory_Details_Activity"
-            android:label="@string/new_product">
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ilyakamar.im_try_4.Inventory_Activity" />
-        </activity>
-
     </application>
 
 </manifest>
